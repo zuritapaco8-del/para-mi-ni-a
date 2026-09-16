@@ -1,0 +1,325 @@
+!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #ffd6e7, #fff0f5, #ffd1dc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .contenedor {
+            text-align: center;
+            width: 100%;
+            max-width: 700px;
+            padding: 30px 20px;
+            margin-top: 150px;
+        }
+
+        h1 {
+            color: #b51245;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .instruccion {
+            color: #7d2947;
+            margin-bottom: 35px;
+        }
+
+        .sobre {
+            width: 420px;
+            height: 280px;
+            margin: auto;
+            position: relative;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .frente {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #e83e6f;
+            border-radius: 8px;
+            z-index: 4;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.8s ease;
+            transform-origin: top;
+        }
+
+        .frente p {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .corazon {
+            font-size: 65px;
+            animation: latido 1.2s infinite;
+        }
+
+        .solapa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 210px solid transparent;
+            border-right: 210px solid transparent;
+            border-top: 145px solid #c92f5d;
+            z-index: 5;
+            transition: transform 0.8s ease, z-index 0.4s ease;
+            transform-origin: top;
+        }
+
+        .carta {
+            position: absolute;
+            width: 90%;
+            left: 5%;
+            height: 480px;
+            background: #fffdf5;
+            top: 10px;
+            border-radius: 10px;
+            z-index: 2;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+            opacity: 0;
+            transform: translateY(0);
+            transition: transform 1s ease 0.4s, opacity 0.4s ease 0.3s, z-index 0s linear 0.4s;
+        }
+
+        .contenido {
+            padding: 30px;
+            color: #4d2935;
+            line-height: 1.6;
+        }
+
+        .contenido h2 {
+            color: #c2185b;
+            margin-top: 0;
+        }
+
+        .contenido p {
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .contenido strong {
+            color: #d41450;
+        }
+
+        .spiderman {
+            width: 160px;
+            max-height: 190px;
+            object-fit: contain;
+            border-radius: 12px;
+            margin: 10px auto 20px;
+            display: block;
+        }
+
+        .final {
+            font-weight: bold;
+            color: #b51245;
+        }
+
+        .contenido h3 {
+            color: #c2185b;
+            margin-bottom: 0;
+        }
+
+        .firma {
+            text-align: center !important;
+            color: #8b4560;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 35px;
+            border: none;
+            background: #d92760;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 17px;
+            cursor: pointer;
+            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.06);
+            background: #bd1e52;
+        }
+
+        /* ESTADOS AL ABRIR */
+
+        .sobre.abierto .solapa {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .sobre.abierto .carta {
+            opacity: 1;
+            transform: translateY(-260px);
+            z-index: 10;
+        }
+
+        /* CORAZONES FLOTANTES */
+
+        .corazones span {
+            position: fixed;
+            bottom: -50px;
+            font-size: 25px;
+            animation: subir 8s linear infinite;
+            opacity: 0.7;
+        }
+
+        .corazones span:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .corazones span:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .corazones span:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .corazones span:nth-child(4) { left: 70%; animation-delay: 1s; }
+        .corazones span:nth-child(5) { left: 90%; animation-delay: 3s; }
+
+        @keyframes subir {
+            from { transform: translateY(0) rotate(0deg); }
+            to { transform: translateY(-110vh) rotate(360deg); }
+        }
+
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* CELULAR */
+
+        @media (max-width: 600px) {
+            .contenedor {
+                margin-top: 180px;
+            }
+
+            h1 { font-size: 25px; }
+
+            .sobre {
+                width: 320px;
+                height: 220px;
+            }
+
+            .solapa {
+                border-left-width: 160px;
+                border-right-width: 160px;
+                border-top-width: 115px;
+            }
+
+            .carta { height: 420px; }
+
+            .sobre.abierto .carta {
+                transform: translateY(-230px);
+            }
+
+            .contenido { padding: 20px; }
+            .contenido p { font-size: 15px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="corazones">
+        <span>❤️</span>
+        <span>💕</span>
+        <span>💗</span>
+        <span>💖</span>
+        <span>❤️</span>
+    </div>
+
+    <div class="contenedor">
+
+        <h1>Para una niña muy especial ❤️</h1>
+
+        <p class="instruccion">Toca el sobre para abrirlo 💌</p>
+
+        <div class="sobre" id="sobre">
+
+            <div class="solapa"></div>
+
+            <div class="carta" id="carta">
+                <div class="contenido">
+
+                    <h2>Para mi niña hermosa ❤️</h2>
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhifq3FcyDEGfWJ2kqEDc1zLJ4W5-0xTzbz6kJuweCCQ&s=10" alt="Spider-Man" class="spiderman">
+
+                    <p>
+                        Hola, mi niña bonita 🥺✨. Solo quería recordarte que me gustas muchisisísimo y que cada día que pasa me encantasmucho mas. 
+                    </p>
+
+                    <p>
+                        ¡No sabes las ganas tan enormes que tengo de verte! Ya me muero por tenerte cerquita, abrazarte fuerte y perderme un rato en <strong>tus ojitos lindos</strong> 🥺❤️, porque de verdad tienen un brillo mágico que me acelera el corazón.
+                    </p>
+
+                    <p>
+                        Quiero dar lo mejor de mí para hacerte la niña más feliz del mundo, cuidarte siempre, amarte y respetarte con todo mi corazón. Te prometo sacarte miles de sonrisas y crear momentos hermosos a tu lado. 🧸✨
+                    </p>
+
+                    <p class="final">
+                        Espero que este detallito te alegre el día tanto como tú alegras el mío con solo existir. 🥺💕
+                    </p>
+
+                    <h3>Con todo mi amor ❤️</h3>
+                    <p class="firma">Att. Tu ingeniero en sistemas❤️ </p>
+
+                </div>
+            </div>
+
+            <div class="frente">
+                <div class="corazon">❤️</div>
+                <p>Para ti</p>
+            </div>
+
+        </div>
+
+        <button id="boton">Abrir carta 💌</button>
+
+    </div>
+
+    <script>
+        const sobre = document.getElementById("sobre");
+        const boton = document.getElementById("boton");
+
+        function abrirCarta() {
+            sobre.classList.toggle("abierto");
+
+            if (sobre.classList.contains("abierto")) {
+                boton.innerHTML = "Cerrar carta 💕";
+            } else {
+                boton.innerHTML = "Abrir carta 💌";
+            }
+        }
+
+        sobre.addEventListener("click", abrirCarta);
+
+        boton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            abrirCarta();
+        });
+    </script>
+
+</body>
+</html>
